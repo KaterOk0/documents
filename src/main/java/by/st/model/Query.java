@@ -1,0 +1,35 @@
+package by.st.model;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
+@Table(name = "queries")
+public class Query {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "query_seq")
+    @SequenceGenerator(name = "query_seq",
+            sequenceName = "queryseq", allocationSize = 1)
+    @Column(name = "query_id")
+    private Long queryId;
+
+    @Column(name = "last_status")
+    private int lastStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "query_type")
+    private QueryType queryType;
+
+    @Column(name = "query_date")
+    private Date queryDate;
+
+}

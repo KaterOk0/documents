@@ -1,4 +1,5 @@
 create sequence settingseq start 1 increment 1;
+create sequence queryseq start 293930 increment 1;
 
 create table settings
 (
@@ -11,4 +12,40 @@ create table settings
     value        varchar(255),
     primary key (id)
 );
+
+create table query_types
+(
+    query_type int4 not null,
+    name_query varchar(255),
+    print_file varchar(255),
+    primary key (query_type)
+)
+
+create table query_types_params
+(
+    id_param        varchar(255) not null,
+    parent_id_param varchar(255) not null,
+    query_type      int4         not null,
+    is_obligatory   int4,
+    name_param      varchar(255),
+    type_param      varchar(255),
+    primary key (id_param, parent_id_param, query_type);
+
+create table queries
+(
+    query_id    int8 not null,
+    last_status int4,
+    query_date  timestamp,
+    query_type  int4,
+    primary key (query_id)
+)
+alter table if exists queries
+    add constraint FKq1e0wyxb5yua2ph2merq5jo4f
+    foreign key (query_type)
+    references query_types;
+
+alter table if exists query_types_params
+    add constraint FKdxnddcmvb4wuxgftl74ibevtr
+    foreign key (query_type)
+    references query_types;
 

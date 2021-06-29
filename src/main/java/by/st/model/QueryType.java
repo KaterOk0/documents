@@ -4,17 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "query_types")
-public class QueryTypes {
+public class QueryType {
 
     @Id
     @Column(name = "query_type")
@@ -25,4 +23,10 @@ public class QueryTypes {
 
     @Column(name = "print_file")
     private String printFile;
+
+    @OneToMany(mappedBy = "queryType")
+    private Set<Query> queries;
+
+    @OneToMany(mappedBy = "queryType")
+    private Set<QueryTypesParam> queryTypesParams;
 }
