@@ -29,6 +29,8 @@ public class QueryTypeServiceImpl implements QueryTypeService {
 
     @Override
     @Transactional
+    // TODO разобраться с EntityGraph
+    // TODO hint
     public QueryType getQueryTypeAndParamsInfo(int queryType) {
         QueryType queryTypeInfo = typeRepository.findById(queryType).orElse(null);
         if (queryTypeInfo != null) {

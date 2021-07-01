@@ -62,6 +62,7 @@ public class TestDataBaseConfig {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", PROPERTY_NAME_HIBERNATE_DIALECT);
         properties.put("hibernate.show_sql", PROPERTY_NAME_HIBERNATE_SHOW_SQL);
+        properties.put("hibernate.format_sql", PROPERTY_NAME_HIBERNATE_SHOW_SQL);
         return properties;
     }
 

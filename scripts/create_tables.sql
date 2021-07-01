@@ -38,7 +38,19 @@ create table queries
     query_date  timestamp,
     query_type  int4,
     primary key (query_id)
-)
+);
+
+create table query_input_params
+(
+    num_param   int8 not null,
+    query_id    int8 not null,
+    name_param  varchar(255),
+    ncycle      int4 not null,
+    value_param varchar(255),
+    primary key (num_param, query_id)
+);
+
+
 alter table if exists queries
     add constraint FKq1e0wyxb5yua2ph2merq5jo4f
     foreign key (query_type)
@@ -48,4 +60,9 @@ alter table if exists query_types_params
     add constraint FKdxnddcmvb4wuxgftl74ibevtr
     foreign key (query_type)
     references query_types;
+
+alter table if exists query_input_params
+    add constraint FKo3xoj8wdjdblm8v7dg7pykqdy
+    foreign key (query_id)
+    references queries;
 

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -31,5 +32,8 @@ public class Query {
 
     @Column(name = "query_date")
     private Date queryDate;
+
+    @OneToMany(mappedBy = "query")
+    Set<QueryInputParam> inputParams;
 
 }
