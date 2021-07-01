@@ -66,3 +66,9 @@ alter table if exists query_input_params
     foreign key (query_id)
     references queries;
 
+create index query_date_index on queries (query_date);
+create index query_type_index on queries (query_type);
+create index query_input_index on query_input_params (query_id, name_param);
+
+
+

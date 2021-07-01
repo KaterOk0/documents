@@ -4,7 +4,6 @@ import by.st.model.QueryType;
 import by.st.repository.QueryTypeRepository;
 import by.st.services.QueryTypeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QueryTypeServiceImpl implements QueryTypeService {
 
-    @Autowired
     private final QueryTypeRepository typeRepository;
 
     @Override

@@ -23,6 +23,7 @@ public class QueryInputParam {
     @Column(name = "value_param")
     private String valueParam;
 
+    @Column(name = "ncycle")
     private int ncycle;
 
     @ManyToOne

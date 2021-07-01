@@ -2,6 +2,7 @@ package by.st.services.impl;
 
 import by.st.model.Query;
 import by.st.model.QueryType;
+import by.st.repository.QueryInputParamsRepository;
 import by.st.repository.QueryRepository;
 import by.st.services.QueryService;
 import lombok.RequiredArgsConstructor;
@@ -15,23 +16,41 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QueryServiceImpl implements QueryService {
 
-    private final QueryRepository repository;
+    private final QueryRepository queryRepository;
+    private final QueryInputParamsRepository paramsRepository;
 
     @Override
     public List<Query> getAll(Pageable pageable) {
-        Page<Query> all = repository.findAll(pageable);
+        Page<Query> all = queryRepository.findAll(pageable);
         return all.toList();
+    }
+
+    @Override
+    public Query getQueryRecord(long id) {
+        return queryRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<Query> getByQueryTypeSortedByDate(int queryType, Pageable pageable) {
         QueryType queryType1 = new QueryType();
         queryType1.setQueryType(queryType);
-        return repository.findQueryByQueryType(queryType1, pageable);
+        return queryRepository.findQueryByQueryType(queryType1, pageable);
     }
 
     @Override
     public List<Query> getZPProjectWithSpecialAgencyName(String agencyName, Pageable pageable) {
-        return repository.findZPProjectWithSpecialAgencyName(agencyName, pageable);
+        return queryRepository.findZPProjectWithSpecialAgencyName(agencyName, pageable);
     }
+
+    @Override
+    public void deleteQuery(long queryId) {
+        queryRepository.deleteById(queryId);
+    }
+
+    @Override
+    public void updateQuery(Query query) {
+        query.getInputParams().forEach(paramsRepository::save);
+        queryRepository.save(query);
+    }
+
 }

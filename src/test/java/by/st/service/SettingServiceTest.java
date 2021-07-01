@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
@@ -23,11 +22,9 @@ import static org.junit.Assert.*;
  * Class for testing Setting Service
  */
 
-@DirtiesContext // говорит что ApplicationContext Spring будет связан с тестовым классом
+@DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestDataBaseConfig.class)
-//@SpringBootTest
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class SettingServiceTest {
 
     @Autowired
@@ -43,14 +40,13 @@ public class SettingServiceTest {
     }
 
     @Test
-    @Transactional(propagation = Propagation.NOT_SUPPORTED) // чтобы не делался rollback после моих изменений
     public void addSettingTest() {
-        Setting settingForTest = getSettingForTest();
-        settingService.addSetting(settingForTest);
-        assertNotNull(settingForTest.getId());
+        Setting setting = settingService.addSetting(getSettingForTest());
+        assertNotNull(setting.getId());
     }
 
     @Test
+    @Transactional
     public void updateSettingTest() {
         Setting settingForTest = new Setting(12001,
                 "Максимально допустимый размер прикрепляемого файла для документа №26 (Кб)",
@@ -64,8 +60,10 @@ public class SettingServiceTest {
     }
 
     @Test
+    @Transactional
     public void deleteSettingTest() {
         settingService.deleteSetting(100);
+        assertNull(settingService.getById(100));
     }
 
     @Test

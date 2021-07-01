@@ -26,14 +26,15 @@ public class Query {
     @Column(name = "last_status")
     private int lastStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "query_type")
     private QueryType queryType;
 
     @Column(name = "query_date")
     private Date queryDate;
 
-    @OneToMany(mappedBy = "query")
+    @OneToMany(mappedBy = "query",
+            cascade = CascadeType.REMOVE// «Дочерняя» сущность удаляется только тогда, когда ее «Родитель» удаляется.
+    )
     Set<QueryInputParam> inputParams;
-
 }

@@ -13,8 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,5 +48,6 @@ public class QueryTypeServiceTest {
     public void getQueryTypeWithParamsTest() {
         QueryType typeInfo = service.getQueryTypeAndParamsInfo(46);
         typeInfo.getQueryTypesParams().forEach(System.out::println);
+        assertTrue(typeInfo.getQueryTypesParams().size() > 0);
     }
 }

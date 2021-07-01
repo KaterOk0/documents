@@ -8,6 +8,8 @@ public interface SettingService {
 
     List<Setting> getAll();
 
+    Setting getById(long id);
+
     Setting addSetting(Setting setting);
 
     void deleteSetting(long id);

@@ -4,7 +4,6 @@ import by.st.model.Setting;
 import by.st.repository.SettingRepository;
 import by.st.services.SettingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,12 +12,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SettingServiceImpl implements SettingService {
 
-    @Autowired
     private final SettingRepository settingRepository;
 
     @Override
     public List<Setting> getAll() {
         return settingRepository.findAll();
+    }
+
+    @Override
+    public Setting getById(long id) {
+        return settingRepository.findById(id).orElse(null);
     }
 
     @Override
