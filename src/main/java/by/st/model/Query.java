@@ -1,8 +1,8 @@
 package by.st.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -26,6 +26,9 @@ public class Query {
     @Column(name = "last_status")
     private int lastStatus;
 
+    @JsonBackReference
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "query_type")
     private QueryType queryType;
@@ -33,6 +36,9 @@ public class Query {
     @Column(name = "query_date")
     private Date queryDate;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonManagedReference
     @OneToMany(mappedBy = "query",
             cascade = CascadeType.REMOVE// «Дочерняя» сущность удаляется только тогда, когда ее «Родитель» удаляется.
     )

@@ -1,6 +1,7 @@
 package by.st.model;
 
 import by.st.model.id.QueryTypesParamId;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class QueryTypesParam {
     @Column(name = "is_obligatory")
     private int isObligatory;
 
+    @JsonBackReference
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToOne

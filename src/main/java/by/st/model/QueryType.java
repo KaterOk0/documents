@@ -1,5 +1,6 @@
 package by.st.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,9 +25,11 @@ public class QueryType {
     @Column(name = "print_file")
     private String printFile;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "queryType")
     private Set<Query> queries;
 
     @OneToMany(mappedBy = "queryType")
+    @JsonManagedReference
     private Set<QueryTypesParam> queryTypesParams;
 }

@@ -1,9 +1,8 @@
 package by.st.model;
 
 import by.st.model.id.QueryInputParamId;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -26,8 +25,16 @@ public class QueryInputParam {
     @Column(name = "ncycle")
     private int ncycle;
 
+    @JsonBackReference
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToOne
     @MapsId(value = "queryId")
     @JoinColumn(name = "query_id")
     private Query query;
+
+    @Override
+    public String toString() {
+        return "QueryInputParam{}";
+    }
 }
