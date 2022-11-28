@@ -19,7 +19,7 @@ create table query_types
     name_query varchar(255),
     print_file varchar(255),
     primary key (query_type)
-)
+);
 
 create table query_types_params
 (
@@ -29,7 +29,7 @@ create table query_types_params
     is_obligatory   int4,
     name_param      varchar(255),
     type_param      varchar(255),
-    primary key (id_param, parent_id_param, query_type);
+    primary key (id_param, parent_id_param, query_type));
 
 create table queries
 (
@@ -69,6 +69,27 @@ alter table if exists query_input_params
 create index query_date_index on queries (query_date);
 create index query_type_index on queries (query_type);
 create index query_input_index on query_input_params (query_id, name_param);
+
+create table users
+(
+    id int not null,
+    login varchar(30) not null,
+    password varchar(200) not null,
+    first_name varchar(100) not null,
+    last_name varchar(100) not null,
+    role varchar(100) not null,
+    status varchar(20) not null
+);
+
+create unique index users_id_uindex
+	on users (id);
+
+create unique index users_login_uindex
+	on users (login);
+
+alter table users
+    add constraint users_pk
+        primary key (id);
 
 
 
