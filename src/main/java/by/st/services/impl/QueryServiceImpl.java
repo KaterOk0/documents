@@ -1,7 +1,9 @@
 package by.st.services.impl;
 
 import by.st.model.Query;
+import by.st.model.QueryInputParam;
 import by.st.model.QueryType;
+import by.st.model.id.QueryInputParamId;
 import by.st.repository.QueryInputParamsRepository;
 import by.st.repository.QueryRepository;
 import by.st.services.QueryService;
@@ -49,8 +51,19 @@ public class QueryServiceImpl implements QueryService {
 
     @Override
     public void updateQuery(Query query) {
-        query.getInputParams().forEach(paramsRepository::save);
+        paramsRepository.saveAll(query.getInputParams());
         queryRepository.save(query);
+    }
+
+    @Override
+    public long saveQuery(Query query) {
+        Query savedQuery = queryRepository.save(query);
+        int i = 1;
+        for (QueryInputParam param : query.getInputParams()) {
+            param.setInputParamId(new QueryInputParamId(savedQuery.getQueryId(), i++));
+        }
+        paramsRepository.saveAll(query.getInputParams());
+        return savedQuery.getQueryId();
     }
 
 }

@@ -5,9 +5,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static by.st.model.Permission.QUERIES_READ;
+import static by.st.model.Permission.QUERIES_WRITE;
+import static by.st.model.Permission.SETTINGS_READ;
+import static by.st.model.Permission.SETTINGS_WRITE;
+
 public enum Role {
-    USER(Set.of(Permission.QUERIES_READ)),
-    ADMIN(Set.of(Permission.QUERIES_READ, Permission.QUERIES_WRITE));
+    USER(Set.of(QUERIES_READ, SETTINGS_READ)),
+    ADMIN(Set.of(QUERIES_READ, QUERIES_WRITE, SETTINGS_READ, SETTINGS_WRITE));
 
     private final Set<Permission> permissions;
 

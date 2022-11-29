@@ -3,7 +3,13 @@ package by.st.controller;
 import by.st.model.Setting;
 import by.st.services.SettingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -14,18 +20,20 @@ public class SettingController {
     private final SettingService settingService;
 
     @GetMapping("/settings")
-    List<Setting> all() {
-        return settingService.getAll();
+    @PreAuthorize("hasAuthority('settings:read')")
+    ResponseEntity<List<Setting>> all() {
+        return ResponseEntity.ok(settingService.getAll());
     }
 
     @GetMapping("/settings/{settingId}")
-    Setting getSetting(@PathVariable Long settingId) {
-        return settingService.getOpenSettingBySettingCode(settingId);
+    @PreAuthorize("hasAuthority('settings:read')")
+    ResponseEntity<Setting> getSetting(@PathVariable Long settingId) {
+        return ResponseEntity.ok(settingService.getOpenSettingBySettingCode(settingId));
     }
 
     @PutMapping("/settings/{settingId}")
-    Setting replaceSetting(@RequestBody Setting newSetting) {
-        return settingService.updateSetting(newSetting);
+    @PreAuthorize("hasAuthority('settings:write')")
+    ResponseEntity<Setting> replaceSetting(@RequestBody Setting newSetting, @PathVariable String settingId) {
+        return ResponseEntity.ok(settingService.updateSetting(newSetting));
     }
-
 }

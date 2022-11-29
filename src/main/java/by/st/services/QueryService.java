@@ -26,5 +26,6 @@ public interface QueryService {
     void updateQuery(Query query);
 
     // TODO статистика по месяцам сколько за каждый месяц создано допустим 9ок
-    // TODO вставка документов
+
+    long saveQuery(Query query);
 }

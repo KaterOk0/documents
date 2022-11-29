@@ -29,7 +29,7 @@ public class QueryController {
 
     @PostMapping("/saveQuery")
     @PreAuthorize("hasAuthority('queries:write')")
-    public ResponseEntity<Long> saveQuery(@RequestBody long queryId) {
-        return ResponseEntity.ok(1L);
+    public ResponseEntity<Long> saveQuery(@RequestBody Query query) {
+        return ResponseEntity.ok(queryService.saveQuery(query));
     }
 }
