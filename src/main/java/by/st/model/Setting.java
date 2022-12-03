@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,6 +15,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "settings")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Setting {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
@@ -31,12 +34,4 @@ public class Setting {
     private int isOpen;
     @Column(name = "value")
     private String value;
-
-    public Setting(long settingCode, String settingName, Date settingDate, int isOpen, String value) {
-        this.settingCode = settingCode;
-        this.settingName = settingName;
-        this.settingDate = settingDate;
-        this.isOpen = isOpen;
-        this.value = value;
-    }
 }

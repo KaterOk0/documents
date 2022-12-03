@@ -48,7 +48,7 @@ public class SettingServiceTest {
     @Test
     @Transactional
     public void updateSettingTest() {
-        Setting settingForTest = new Setting(12001,
+        Setting settingForTest = new Setting(0L, 12001,
                 "Максимально допустимый размер прикрепляемого файла для документа №26 (Кб)",
                 new Date(),
                 1,
@@ -75,7 +75,7 @@ public class SettingServiceTest {
     }
 
     private Setting getSettingForTest() {
-        return new Setting(5000,
+        return new Setting(0L, 5000,
                 "Количество допустимых валют в заявке на зачем взаимных требований",
                 new Date(),
                 1,
