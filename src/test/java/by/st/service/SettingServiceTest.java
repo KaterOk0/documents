@@ -3,6 +3,8 @@ package by.st.service;
 import by.st.config.TestDataBaseConfig;
 import by.st.model.Setting;
 import by.st.services.SettingService;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Class for testing Setting Service
@@ -57,6 +62,12 @@ public class SettingServiceTest {
         assertNotNull(setting.getId());
         Setting openSettingBySettingCode = settingService.getOpenSettingBySettingCode(12001);
         assertEquals("5003030902", openSettingBySettingCode.getValue());
+        Cache cache = CacheManager.ALL_CACHE_MANAGERS.get(0).getCache("by.st.model.Setting");
+        int cacheSize = cache.getSize();
+        long hitsCount = cache.getStatistics().cacheHitCount();
+        System.out.println("Cache size - " + cacheSize + ", Hits - " + hitsCount);
+        assertTrue(cacheSize > 0);
+        assertTrue(hitsCount > 0);
     }
 
     @Test

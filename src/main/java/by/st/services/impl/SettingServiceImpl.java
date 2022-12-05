@@ -53,5 +53,4 @@ public class SettingServiceImpl implements SettingService {
     public Setting getOpenSettingBySettingCode(long settingCode) {
         return settingRepository.findOpenSettingBySettingCode(settingCode);
     }
-
 }
