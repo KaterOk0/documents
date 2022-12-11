@@ -13,6 +13,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "queries")
+@NamedEntityGraphs({
+        @NamedEntityGraph(name = "query-params-entity-graph",
+                attributeNodes = {@NamedAttributeNode("inputParams")})
+})
 public class Query {
 
     @Id
@@ -40,7 +44,8 @@ public class Query {
     @ToString.Exclude
     @JsonManagedReference
     @OneToMany(mappedBy = "query",
-            cascade = CascadeType.REMOVE// «Дочерняя» сущность удаляется только тогда, когда ее «Родитель» удаляется.
+            cascade = CascadeType.REMOVE,// «Дочерняя» сущность удаляется только тогда, когда ее «Родитель» удаляется.
+            fetch = FetchType.LAZY
     )
     Set<QueryInputParam> inputParams;
 }

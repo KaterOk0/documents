@@ -9,7 +9,7 @@ public interface QueryService {
 
     List<Query> getAll(Pageable pageable);
 
-    Query getQueryRecord(long id);
+    Query getQueryRecord(long id, int withParams);
 
     List<Query> getByQueryTypeSortedByDate(int queryType, Pageable pageable);
 

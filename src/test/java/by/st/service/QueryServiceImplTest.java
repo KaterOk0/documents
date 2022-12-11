@@ -68,7 +68,14 @@ public class QueryServiceImplTest {
     @Transactional
     public void deleteQueryTest() {
         service.deleteQuery(234208);
-        assertNull(service.getQueryRecord(234208));
+        assertNull(service.getQueryRecord(234208, 0));
+    }
+
+    @Test
+    @Transactional
+    public void getQueryTest() {
+        Query queryRecord = service.getQueryRecord(234209, 1);
+        System.out.println();
     }
 
     @Test

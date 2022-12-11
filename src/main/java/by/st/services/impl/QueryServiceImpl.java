@@ -28,7 +28,10 @@ public class QueryServiceImpl implements QueryService {
     }
 
     @Override
-    public Query getQueryRecord(long id) {
+    public Query getQueryRecord(long id, int withParams) {
+        if (withParams == 1) {
+            return queryRepository.findQueryWithParamsByQueryId(id).orElse(null);
+        }
         return queryRepository.findById(id).orElse(null);
     }
 

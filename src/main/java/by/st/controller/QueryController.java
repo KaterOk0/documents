@@ -24,7 +24,7 @@ public class QueryController {
     @GetMapping("/getQuery/{queryId}")
     @PreAuthorize("hasAuthority('queries:read')")
     public ResponseEntity<Query> getQuery(@PathVariable("queryId") long queryId) {
-        return ResponseEntity.ok(queryService.getQueryRecord(queryId));
+        return ResponseEntity.ok(queryService.getQueryRecord(queryId, 1));
     }
 
     @PostMapping("/saveQuery")
